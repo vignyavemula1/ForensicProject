@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Audio Analysis Result</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 0; padding: 2rem; background: #f5f5f5; max-width: 720px; margin-left: auto; margin-right: auto; }
+    h1 { color: #2563eb; }
+    .box { background: #fff; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 1rem; }
+    .verdict { font-size: 1.25rem; font-weight: bold; padding: 0.5rem 0; }
+    .verdict.forged { color: #b91c1c; }
+    .verdict.suspicious { color: #b45309; }
+    .verdict.authentic { color: #15803d; }
+    ul { margin: 0.25rem 0; padding-left: 1.25rem; }
+    a { color: #2563eb; }
+    img { max-width: 100%; height: auto; margin-top: 0.5rem; }
+  </style>
+</head>
+<body>
+  <p><a href="{% url 'forgery:home' %}">← Back to Multimedia Forensics Detector</a> · <a href="{% url 'forgery:audio_upload' %}">Analyze another audio</a></p>
+  <h1>Audio Analysis Result</h1>
+  {% if error %}
+    <div class="box">
+      <p><strong>Error:</strong> {{ error }}</p>
+      {% if filename %}<p>File: {{ filename }}</p>{% endif %}
+    </div>
+  {% else %}
+    <p><strong>File:</strong> {{ filename }}</p>
+    <div class="box">
+      <h2>Overall Verdict</h2>
+      <p class="verdict {% if results.overall_verdict == 'LIKELY FORGED' %}forged{% elif results.overall_verdict == 'SUSPICIOUS' %}suspicious{% else %}authentic{% endif %}">{{ results.overall_verdict }}</p>
+    </div>
+    {% if results.metadata %}
+    <div class="box">
+      <h2>Metadata</h2>
+      <ul>
+        {% for k, v in results.metadata.items %}
+        <li><strong>{{ k }}:</strong> {{ v }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+    <div class="box">
+      <h2>Detection Results</h2>
+      {% if results.splicing_detection %}
+      <p><strong>Splicing:</strong> {% if results.splicing_detection.is_forged %}Detected{% else %}Not detected{% endif %} (score: {{ results.splicing_detection.score|floatformat:2 }}%)</p>
+      {% endif %}
+      {% if results.clipping_detection %}
+      <p><strong>Clipping:</strong> {% if results.clipping_detection.has_clipping %}Detected{% else %}Not detected{% endif %} ({{ results.clipping_detection.percentage|floatformat:2 }}%)</p>
+      {% endif %}
+      {% if results.noise_analysis %}
+      <p><strong>Noise pattern:</strong> {% if results.noise_analysis.is_inconsistent %}Inconsistent{% else %}Consistent{% endif %} (score: {{ results.noise_analysis.consistency_score|floatformat:2 }})</p>
+      {% endif %}
+      {% if results.resampling_detection %}
+      <p><strong>Resampling:</strong> {% if results.resampling_detection.is_resampled %}Detected{% else %}Not detected{% endif %} (confidence: {{ results.resampling_detection.confidence|floatformat:2 }}%)</p>
+      {% endif %}
+      {% if results.compression_analysis %}
+      <p><strong>Compression artifacts:</strong> {% if results.compression_analysis.has_artifacts %}Detected{% else %}Not detected{% endif %} (score: {{ results.compression_analysis.artifact_score|floatformat:2 }})</p>
+      {% endif %}
+    </div>
+    {% if upload_url %}
+    <div class="box">
+      <h2>Uploaded file</h2>
+      <audio controls src="{{ upload_url }}" style="max-width:100%;"></audio>
+    </div>
+    {% endif %}
+    {% if spectrogram_url %}
+    <div class="box">
+      <h2>Spectrogram</h2>
+      <img src="{{ spectrogram_url }}" alt="Spectrogram" />
+    </div>
+    {% endif %}
+  {% endif %}
+</body>
+</html>

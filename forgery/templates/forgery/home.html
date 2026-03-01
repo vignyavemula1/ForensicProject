@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Multimedia Forensics Detector</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; margin: 0; padding: 2rem; background: #f5f5f5; }
+    .container { max-width: 900px; margin: 0 auto; }
+    h1 { text-align: center; color: #222; margin-bottom: 2rem; font-size: 1.75rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
+    .card { background: #fff; border-radius: 12px; padding: 1.5rem; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.08); text-decoration: none; color: inherit; display: block; border: 2px solid transparent; transition: border-color .2s, box-shadow .2s; }
+    .card:hover { border-color: #333; box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
+    .card h2 { margin: 0 0 0.5rem; font-size: 1.1rem; }
+    .card p { margin: 0; color: #666; font-size: 0.9rem; }
+    .card.image { border-left: 4px solid #333; }
+    .card.audio { border-left: 4px solid #2563eb; }
+    .card.video { border-left: 4px solid #7c3aed; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Multimedia Forensics Detector</h1>
+    <p style="text-align: center; color: #555; margin-bottom: 2rem;">Choose a media type to run forgery and manipulation detection.</p>
+    <div class="cards">
+      <a href="{% url 'forgery:image_upload' %}" class="card image">
+        <h2>Image Detection</h2>
+        <p>Upload an image for forgery detection (compression, copy-move, noise, EXIF).</p>
+      </a>
+      <a href="{% url 'forgery:audio_upload' %}" class="card audio">
+        <h2>Audio Detection</h2>
+        <p>Upload audio for splicing, clipping, resampling and compression analysis.</p>
+      </a>
+      <a href="{% url 'forgery:video_upload' %}" class="card video">
+        <h2>Video Detection</h2>
+        <p>Upload video for frame duplication, copy-move and compression analysis.</p>
+      </a>
+    </div>
+  </div>
+</body>
+</html>

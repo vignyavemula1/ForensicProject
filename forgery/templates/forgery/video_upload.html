@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Video Forgery Detection</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 0; padding: 2rem; background: #f5f5f5; max-width: 600px; margin-left: auto; margin-right: auto; }
+    h1 { color: #7c3aed; margin-bottom: 1rem; }
+    form { background: #fff; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+    .form-group { margin-bottom: 1rem; }
+    button { background: #7c3aed; color: #fff; border: none; padding: 0.6rem 1.2rem; border-radius: 8px; cursor: pointer; font-size: 1rem; }
+    button:hover { background: #6d28d9; }
+    a { color: #7c3aed; }
+  </style>
+</head>
+<body>
+  <p><a href="{% url 'forgery:home' %}">← Back to Multimedia Forensics Detector</a></p>
+  <h1>Video Forgery Detection</h1>
+  <p>Upload a video file (MP4, AVI, etc.) for frame duplication, copy-move and compression analysis.</p>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Analyze Video</button>
+  </form>
+</body>
+</html>

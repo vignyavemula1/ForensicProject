@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Forgery Analysis Result</title>
+  </head>
+  <body>
+    <h1>Analysis Result</h1>
+    <p><strong>Uploaded file:</strong> {{ filename }}</p>
+    <p><strong>Double JPEG compression detected:</strong> {{ double_compressed }}</p>
+    <p><strong>Noise inconsistency detected:</strong> {{ noise_forgery }}</p>
+    <h2>EXIF Data</h2>
+    {% if exif %}
+      <ul>
+      {% for k,v in exif.items %}
+        <li>{{ k }}: {{ v }}</li>
+      {% endfor %}
+      </ul>
+    {% else %}
+      <p>No EXIF data found.</p>
+    {% endif %}
+
+    <h2>Images</h2>
+    <div>
+      <p>Original:</p>
+      <img src="{{ upload_url }}" style="max-width:600px;" />
+    </div>
+    {% if forgery_url %}
+    <div>
+      <p>Detected forgery overlay:</p>
+      <img src="{{ forgery_url }}" style="max-width:600px;" />
+    </div>
+    {% else %}
+      <p>No copy-move forgery detected (or error during processing).</p>
+    {% endif %}
+
+    <p><a href="{% url 'forgery:home' %}">← Back to Multimedia Forensics Detector</a> · <a href="{% url 'forgery:image_upload' %}">Analyze another image</a></p>
+  </body>
+</html>

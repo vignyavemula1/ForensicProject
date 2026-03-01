@@ -1,0 +1,46 @@
+============================================================
+VIDEO FORENSICS ANALYSIS REPORT
+============================================================
+
+File: ForBiggerEscapes.mp4
+Overall Verdict: SUSPICIOUS
+
+------------------------------------------------------------
+METADATA:
+  File Path: C:/Users/Nethi/OneDrive/Desktop/Image_Manipulation_Detection_System_Python-main/Image_Manipulation_Detection_System_Python-main/input/Video Analysis/ForBiggerEscapes.mp4
+  File Name: ForBiggerEscapes.mp4
+  File Size: 2.19 MB
+  Resolution: 1280x720
+  FPS: 24.00
+  Frame Count: 361
+  Duration: 15.04 seconds
+  Codec: 875967080
+
+------------------------------------------------------------
+DETECTION RESULTS:
+
+1. Frame Duplication:
+   Status: DETECTED
+   Percentage: 48.00%
+
+2. Inter-Frame Forgery:
+   Status: NOT DETECTED
+   Score: 4.08%
+
+3. Copy-Move Detection:
+   Status: DETECTED
+   Percentage: 55.00%
+
+4. Double Compression:
+   Status: DETECTED
+   Confidence: 50.26%
+
+5. Noise Consistency:
+   Status: CONSISTENT
+   Score: 86.75
+
+6. Frame Rate Anomalies:
+   Status: NOT DETECTED
+   Score: 0.00%
+
+============================================================

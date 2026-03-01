@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Video Analysis Result</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 0; padding: 2rem; background: #f5f5f5; max-width: 720px; margin-left: auto; margin-right: auto; }
+    h1 { color: #7c3aed; }
+    .box { background: #fff; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 1rem; }
+    .verdict { font-size: 1.25rem; font-weight: bold; padding: 0.5rem 0; }
+    .verdict.forged { color: #b91c1c; }
+    .verdict.suspicious { color: #b45309; }
+    .verdict.authentic { color: #15803d; }
+    ul { margin: 0.25rem 0; padding-left: 1.25rem; }
+    a { color: #7c3aed; }
+  </style>
+</head>
+<body>
+  <p><a href="{% url 'forgery:home' %}">← Back to Multimedia Forensics Detector</a> · <a href="{% url 'forgery:video_upload' %}">Analyze another video</a></p>
+  <h1>Video Analysis Result</h1>
+  {% if error %}
+    <div class="box">
+      <p><strong>Error:</strong> {{ error }}</p>
+      {% if filename %}<p>File: {{ filename }}</p>{% endif %}
+    </div>
+  {% else %}
+    <p><strong>File:</strong> {{ filename }}</p>
+    <div class="box">
+      <h2>Overall Verdict</h2>
+      <p class="verdict {% if results.overall_verdict == 'LIKELY FORGED' %}forged{% elif results.overall_verdict == 'SUSPICIOUS' %}suspicious{% else %}authentic{% endif %}">{{ results.overall_verdict }}</p>
+    </div>
+    {% if results.metadata %}
+    <div class="box">
+      <h2>Metadata</h2>
+      <ul>
+        {% for k, v in results.metadata.items %}
+        <li><strong>{{ k }}:</strong> {{ v }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+    <div class="box">
+      <h2>Detection Results</h2>
+      {% if results.frame_duplication %}
+      <p><strong>Frame duplication:</strong> {% if results.frame_duplication.has_duplicates %}Detected{% else %}Not detected{% endif %} ({{ results.frame_duplication.percentage|floatformat:2 }}%)</p>
+      {% endif %}
+      {% if results.inter_frame_forgery %}
+      <p><strong>Inter-frame forgery:</strong> {% if results.inter_frame_forgery.is_forged %}Detected{% else %}Not detected{% endif %} (score: {{ results.inter_frame_forgery.score|floatformat:2 }}%)</p>
+      {% endif %}
+      {% if results.copy_move_detection %}
+      <p><strong>Copy-move:</strong> {% if results.copy_move_detection.has_forgery %}Detected{% else %}Not detected{% endif %} ({{ results.copy_move_detection.percentage|floatformat:2 }}%)</p>
+      {% endif %}
+      {% if results.double_compression %}
+      <p><strong>Double compression:</strong> {% if results.double_compression.is_detected %}Detected{% else %}Not detected{% endif %} (confidence: {{ results.double_compression.confidence|floatformat:2 }}%)</p>
+      {% endif %}
+      {% if results.noise_consistency %}
+      <p><strong>Noise consistency:</strong> {% if results.noise_consistency.is_inconsistent %}Inconsistent{% else %}Consistent{% endif %} (score: {{ results.noise_consistency.score|floatformat:2 }})</p>
+      {% endif %}
+      {% if results.frame_rate_anomalies %}
+      <p><strong>Frame rate anomalies:</strong> {% if results.frame_rate_anomalies.has_anomalies %}Detected{% else %}None{% endif %} (score: {{ results.frame_rate_anomalies.score|floatformat:2 }})</p>
+      {% endif %}
+    </div>
+    {% if upload_url %}
+    <div class="box">
+      <h2>Uploaded file</h2>
+      <video controls src="{{ upload_url }}" style="max-width:100%;"></video>
+    </div>
+    {% endif %}
+  {% endif %}
+</body>
+</html>

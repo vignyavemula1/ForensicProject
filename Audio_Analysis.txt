@@ -1,0 +1,40 @@
+============================================================
+AUDIO FORENSICS ANALYSIS REPORT
+============================================================
+
+File: LRMonoPhase4.wav
+Overall Verdict: LIKELY AUTHENTIC
+
+------------------------------------------------------------
+METADATA:
+  Duration: 38.76 seconds
+  Sample Rate: 48000 Hz
+  Channels: 2
+  Bitrate: 1536000 bps
+  File Size: 7267.86 KB
+  Audio Length: 1860560 samples
+
+------------------------------------------------------------
+DETECTION RESULTS:
+
+1. Splicing Detection:
+   Status: NOT DETECTED
+   Score: 2.01%
+
+2. Clipping Detection:
+   Status: NOT DETECTED
+   Percentage: 0.00%
+
+3. Noise Pattern Analysis:
+   Status: CONSISTENT
+   Score: 41.64
+
+4. Resampling Detection:
+   Status: DETECTED
+   Confidence: 96.55%
+
+5. Compression Artifacts:
+   Status: NOT DETECTED
+   Score: 0.00
+
+============================================================

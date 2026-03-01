@@ -1,0 +1,17 @@
+matplotlib>=3.7.0
+numpy>=1.24.0
+opencv_python>=4.8.0
+Pillow>=10.0.0
+prettytable>=3.2.0
+pyparsing>=3.0.6
+scikit_learn>=1.3.0
+scipy>=1.10.0
+
+# Audio Processing Libraries
+librosa>=0.10.0
+soundfile>=0.12.0
+mutagen>=1.47.0
+
+# Video Processing (already covered by opencv)
+# Audio/Video metadata extraction
+ffmpeg-python>=0.2.0

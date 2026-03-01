@@ -1,0 +1,11 @@
+ResolutionUnit : 2
+ExifOffset : 232
+Make : Canon
+Model : Canon EOS REBEL T2i
+Software : Elements Organizer 9.0
+DateTime : 2018:12:20 13:59:19
+YCbCrPositioning : 2
+YResolution : 72.0
+Copyright : 
+XResolution : 72.0
+Artist : 
