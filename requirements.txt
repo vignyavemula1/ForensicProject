@@ -15,4 +15,5 @@ mutagen>=1.47.0
 # Video Processing (already covered by opencv)
 # Audio/Video metadata extraction
 ffmpeg-python>=0.2.0
+Django>=4.2
 gunicorn
