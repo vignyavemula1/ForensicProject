@@ -7,14 +7,17 @@ SECRET_KEY = 'dev-secret-key'
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'forgery',
 ]
 
-MIDDLEWARE = []
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'django.middleware.common.CommonMiddleware',
+]
 
 ROOT_URLCONF = 'forensics_site.urls'
 
@@ -29,7 +32,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'forensics_site.wsgi.application'
 
-# Static & media
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
